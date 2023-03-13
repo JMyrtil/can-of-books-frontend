@@ -1,5 +1,6 @@
 // import axios from 'axios';
 import React from 'react';
+import { Carousel } from 'react-bootstrap';
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -15,9 +16,10 @@ class BestBooks extends React.Component {
   //   try {
   //     let results = await axios.get(`${SERVER}/books`);
   //     this.seteState({
-  //       books: results.data
+  //       books: results.data,
+  //       renderBook:true
   //     })
-  //   } catch(error) {
+  //   } catch (error) {
   //     console.log('There was an error: ', error.response.data)
   //   }
   // }
@@ -25,16 +27,21 @@ class BestBooks extends React.Component {
   render() {
 
     /* TODO: render all the books in a Carousel */
-
+    let notEmpty = this.state.books.map((book, idx) => (
+      <Carousel.Item key={idx}>
+        <h3>{book.title}</h3>
+      </Carousel.Item>
+    ))
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
 
-        {this.state.books.length ? (
-          <p>Book Carousel coming soon</p>
-        ) : (
-          <h3>No Books Found :(</h3>
-        )}
+        {this.state.rendreBook &&
+          <Carousel>
+            <p>Book Carousel coming soon</p>
+            <h3>{notEmpty}</h3>
+          </Carousel>
+        }
       </>
     )
   }
