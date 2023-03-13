@@ -1,3 +1,4 @@
+// import axios from 'axios';
 import React from 'react';
 
 class BestBooks extends React.Component {
@@ -9,6 +10,17 @@ class BestBooks extends React.Component {
   }
 
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
+
+  // getBooks = async () => {
+  //   try {
+  //     let results = await axios.get(`${SERVER}/books`);
+  //     this.seteState({
+  //       books: results.data
+  //     })
+  //   } catch(error) {
+  //     console.log('There was an error: ', error.response.data)
+  //   }
+  // }
 
   render() {
 
