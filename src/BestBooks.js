@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
-import { Carousel } from "react-bootstrap";
+import BookFormModal from "./BookFormModal";
+import { Button, Carousel, Container, Form, Modal } from "react-bootstrap";
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class BestBooks extends React.Component {
     this.state = {
       books: [],
       renderBook: false,
+      showModal: false
     };
   }
 
@@ -26,14 +28,53 @@ class BestBooks extends React.Component {
     }
   };
 
-  postBooks = async => {
+  postBooks = async (newBook) => {
+    let postServer = process.env.REACT_SERVER;
     try {
-
+      let postUrl = (`${postServer}/book`);
+      let addBook = await axios.post(postUrl, newBook);
+      this.getBooks()
+      this.setState({
+        books: [...this.state.books, addBook.data]
+      })
     } catch (error) {
-
+      console.log("There was an error: ", error.response.data);
     }
-
   };
+
+  removeBooks = async (id) => {
+    let server = process.env.REACT_SERVER;
+    try {
+      let removeUrl = (`${server}/book/${id}`);
+      await axios.delete(removeUrl);
+      let updateBook = this.state.books.filter(book => book.id !== id)
+      this.setState({
+        books: updateBook
+      });
+    } catch (error) {
+      console.log("There was an error: ", error.response.data);
+    }
+  };
+
+  handleBook = (e) => {
+    e.preventDefault();
+    let newBook = {
+      title: e.target.title.value
+    }
+    this.postBooks(newBook)
+  }
+
+  handleCloseModal = () => {
+    this.setState({
+      showModal: false
+    });
+  }
+
+  handleOpenModal = () => {
+    this.setState({
+      showModal: true,
+    });
+  }
 
   componentDidMount() {
     this.getBooks();
@@ -43,22 +84,43 @@ class BestBooks extends React.Component {
 
   render() {
     let booksArr;
-    booksArr = this.state.books.map((book) => {
-      return (
-        <Carousel.Item key={book._id}>
-          <Carousel.Caption>
-            <h2>{book.title}</h2>
-            <p>{book.description}</p>
-            <p>{book.status}</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      );
-    });
+    // booksArr = this.state.books.map((book) => {
+    //   return (
+    //     <Carousel.Item key={book._id}>
+    //       <Carousel.Caption>
+    //         <h2>{book.title}</h2>
+    //         <p>{book.description}</p>
+    //         <p>{book.status}</p>
+    //       </Carousel.Caption>
+    //       <Button
+    //         onClick={() => this.removeBooks(book._id)}
+    //       >
+    //         Remove Book
+    //       </Button>
+    //     </Carousel.Item>
+    //   );
+    // });
 
     return (
       <>
-        <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-        {this.state.renderBook && <Carousel>{booksArr}</Carousel>}
+        <Container>
+          <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
+          {/* {
+            this.state.renderBook &&
+            <Carousel>
+              {booksArr}
+            </Carousel>
+          } */}
+            {/* <Form> */}
+              <BookFormModal
+                show={this.state.showModal}
+                closemodal={this.handleCloseModal}
+                books={this.state.books}
+                removeBooks={this.removeBooks}
+              />
+            {/* </Form> */}
+            <Button type="submit" onClick={this.handleOpenModal}>Add Book</Button>
+        </Container>
       </>
     );
   }
