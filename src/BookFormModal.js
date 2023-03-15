@@ -49,7 +49,7 @@ class BookFormModal extends React.Component {
           <Button onClick={this.handleShow}>ADD</Button>
 
           <Modal show={this.state.showModal} onHide={this.handleHide}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton>  
               <Modal.Title>Add A Book!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
