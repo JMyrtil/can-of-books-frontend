@@ -1,4 +1,5 @@
 import React from "react";
+import UpdateBookModal from './UpdateBookModal';
 import Form from "react-bootstrap/Form";
 import { Button, Container, ListGroup, Modal } from "react-bootstrap";
 
@@ -30,7 +31,7 @@ class BookFormModal extends React.Component {
     });
   };
 
-  handleHide = (e) => {
+  handleHide = () => {
     this.setState({
       showModal: false,
     });
@@ -38,7 +39,11 @@ class BookFormModal extends React.Component {
 
   render() {
     let books = this.props.books.map((book) => (
-      <Book key={book._id} book={book} deleteBook={this.props.deleteBook} />
+      <Book
+       key={book._id} 
+       book={book} 
+       deleteBook={this.props.deleteBook} 
+       updateBook={this.props.updateBook} />
     ));
 
     return (
@@ -46,10 +51,14 @@ class BookFormModal extends React.Component {
         <ListGroup>{books}</ListGroup>
 
         <>
-          <Button onClick={this.handleShow}>ADD</Button>
+          <Button
+            variant="success"
+            onClick={this.handleShow}>ADD</Button>
 
-          <Modal show={this.state.showModal} onHide={this.handleHide}>
-            <Modal.Header closeButton>  
+          <Modal 
+          show={this.state.showModal} 
+          onHide={this.handleHide}>
+            <Modal.Header closeButton>
               <Modal.Title>Add A Book!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -80,19 +89,27 @@ class BookFormModal extends React.Component {
 }
 
 class Book extends React.Component {
+
   render() {
+
     return (
-      <ListGroup.Item>
-        {this.props.book.title} 
-        {this.props.book.description}
-        {this.props.book.status}
-        <Button
-          variant="dark"
-          onClick={() => this.props.deleteBook(this.props.book._id)}
-        >
-          Remove
-        </Button>
-      </ListGroup.Item>
+      <>
+        <ListGroup.Item>
+          {this.props.book.title}
+          {this.props.book.description}
+          {this.props.book.status}
+          <Button
+            variant="danger"
+            onClick={() => this.props.deleteBook(this.props.book._id)}
+          >
+            Remove
+          </Button>
+          <UpdateBookModal
+            book={this.props.book}
+            updateBook={this.props.updateBook}
+          />
+        </ListGroup.Item>
+      </>
     );
   }
 }

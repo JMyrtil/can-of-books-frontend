@@ -16,12 +16,12 @@ class BestBooks extends React.Component {
   getBooks = async () => {
     try {
       let results = await axios.get(`${SERVER}/books`);
-      console.log(`Results: ${results}`);
+      console.log(results.data);
       this.setState({
         books: results.data,
         renderBook: true,
       });
-      console.log(this.statebooks);
+      console.log(this.state.books);
     } catch (err) {
       console.log(`Error: ${err}`);
     }
@@ -46,6 +46,24 @@ class BestBooks extends React.Component {
       let url = `${SERVER}/books/${id}`;
       await axios.delete(url)
       let updatedBooks = this.state.books.filter(book => book._id !== id);
+      this.setState({
+        books: updatedBooks,
+      })
+    } catch (err) {
+      console.log(`Error: ${err}`);
+    }
+  }
+
+  updateBook = async (updateBook) => {
+    try {
+      
+      let url = `${SERVER}/books/${updateBook._id}`;
+      let updatedbookServer = await axios.put(url, updateBook)
+      let updatedBooks = this.state.books.map((book) => {
+        return book._id === updateBook._id
+          ? updatedbookServer.data
+          : book;
+      });
       this.setState({
         books: updatedBooks,
       })
@@ -84,7 +102,14 @@ class BestBooks extends React.Component {
           books={this.state.books}
           postBook={this.postBook}
           deleteBook={this.deleteBook}
+          updateBook={this.updateBook}
         />
+        {/* <UpdateBookModal
+          books={this.state.books}
+          updateBook={this.updateBook}
+          show={this.state.props.show}
+          onHide={this.props.onhide}
+        /> */}
       </>
     );
   }
