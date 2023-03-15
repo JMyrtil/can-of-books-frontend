@@ -14,22 +14,6 @@ class App extends React.Component {
     };
   }
 
-/*lab12 ----------------------------------
-handleBookSubmitt = (e) => {
-  e.preventDefault();
-  let newBook = {
-    title: e.target.title.value,
-    description: e.target.description.value,
-    status: e.target.status.value
-  }
-  this.postBook(newBook);
-}
-* add Form *
--------------------------------------------*/
-
-
-
-
   render() {
     return (
       <>
