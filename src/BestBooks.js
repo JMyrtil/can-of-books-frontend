@@ -11,7 +11,37 @@ class BestBooks extends React.Component {
     };
   }
 
-  /* TODO: Make a GET request to your API to fetch all the books from the database  */
+  /* Lab 12 -----------------------------------------
+  postBook = async ( newBook ) => {
+  let serverData = process.env.REACT_APP_SERVER;
+  try {
+    let url = `${serverData}/books`;
+    let createdBook = await axios.post(url, newBook);
+    this.setState({
+      books: [...this.state.books, createdBook.data],
+    })
+
+
+  } catch(err) {
+    console.log(`Error: ${err}`);
+  }
+}
+
+
+deleteBook = async ( id ) => {
+  let serverData = process.env.REACT_APP_SERVER;
+  try {
+    let url = `${serverData}/books/${id}`;
+    await axios.delete(url)
+    let updatedBooks = this.state.books.filter(book => book._id !== id);
+    this.setState({
+      books: updatedBooks,
+    })
+    this.getBooks();
+  } catch(err) {
+    console.log(`Error: ${err}`);
+  }  
+  -----------------------------------------------------*/
 
   getBooks = async () => {
     let serverData = process.env.REACT_SERVER;
