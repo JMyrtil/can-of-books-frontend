@@ -15,7 +15,6 @@ class BookFormModal extends React.Component {
       <>
         <Modal
           show={this.props.show}
-          
         >
           <Modal.Header>
             <Modal.Title>Add Book</Modal.Title>
