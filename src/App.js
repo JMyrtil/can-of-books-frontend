@@ -14,10 +14,12 @@ class App extends React.Component {
     };
   }
 
+  
+
   render() {
     return (
       <>
-        <Router>
+        <Router className='route'>
           <Header />
           <Routes>
             <Route
