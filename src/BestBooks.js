@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import BookFormModal from "./BookFormModal";
-import { Button, Carousel, Container, Form, Modal } from "react-bootstrap";
+import { Button, Carousel, Container } from "react-bootstrap";
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -84,41 +84,39 @@ class BestBooks extends React.Component {
 
   render() {
     let booksArr;
-    // booksArr = this.state.books.map((book) => {
-    //   return (
-    //     <Carousel.Item key={book._id}>
-    //       <Carousel.Caption>
-    //         <h2>{book.title}</h2>
-    //         <p>{book.description}</p>
-    //         <p>{book.status}</p>
-    //       </Carousel.Caption>
-    //       <Button
-    //         onClick={() => this.removeBooks(book._id)}
-    //       >
-    //         Remove Book
-    //       </Button>
-    //     </Carousel.Item>
-    //   );
-    // });
+    booksArr = this.state.books.map((book) => {
+      return (
+        <Carousel.Item key={book._id}>
+          <Carousel.Caption>
+            <h2>{book.title}</h2>
+            <p>{book.description}</p>
+            <p>{book.status}</p>
+          </Carousel.Caption>
+          <Button
+            onClick={() => this.removeBooks(book._id)}
+          >
+            Remove Book
+          </Button>
+        </Carousel.Item>
+      );
+    });
 
     return (
       <>
         <Container>
           <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-          {/* {
+          {
             this.state.renderBook &&
             <Carousel>
               {booksArr}
             </Carousel>
-          } */}
-            {/* <Form> */}
+          }
               <BookFormModal
                 show={this.state.showModal}
                 closemodal={this.handleCloseModal}
                 books={this.state.books}
                 removeBooks={this.removeBooks}
               />
-            {/* </Form> */}
             <Button type="submit" onClick={this.handleOpenModal}>Add Book</Button>
         </Container>
       </>
