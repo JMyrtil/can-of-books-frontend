@@ -18,7 +18,7 @@ class BookFormModal extends React.Component {
       description: e.target.description.value,
       status: e.target.status.value,
     };
-    this.props.postBooks(newBook);
+    this.props.postBook(newBook);
     console.log(newBook);
   };
 
@@ -38,7 +38,7 @@ class BookFormModal extends React.Component {
 
   render() {
     let books = this.props.books.map((book) => (
-      <Book key={book._id} book={book} deleteBooks={this.props.deleteBooks} />
+      <Book key={book._id} book={book} deleteBook={this.props.deleteBook} />
     ));
 
     return (
@@ -52,7 +52,7 @@ class BookFormModal extends React.Component {
             <Modal.Header closeButton>
               <Modal.Title>Add A Book!</Modal.Title>
             </Modal.Header>
-
+            <Modal.Body>
               <Form onSubmit={this.handleBookSubmit}>
                 <Form.Group controlId="title">
                   <Form.Label>Title: </Form.Label>
@@ -70,8 +70,8 @@ class BookFormModal extends React.Component {
                   Submit!
                 </Button>
               </Form>
-
-              <Button onClick={this.handleHide}>X</Button>
+            </Modal.Body>
+            <Button onClick={this.handleHide}>X</Button>
           </Modal>
         </>
       </Container>
@@ -83,10 +83,12 @@ class Book extends React.Component {
   render() {
     return (
       <ListGroup.Item>
-        {this.props.book.title} is {this.props.book.status}
+        {this.props.book.title} 
+        {this.props.book.description}
+        {this.props.book.status}
         <Button
           variant="dark"
-          onClick={() => this.props.deleteBooks(this.props.book._id)}
+          onClick={() => this.props.deleteBook(this.props.book._id)}
         >
           Remove
         </Button>

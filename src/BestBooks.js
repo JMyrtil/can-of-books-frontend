@@ -15,13 +15,15 @@ class BestBooks extends React.Component {
   
   getBooks = async () => {
     try {
-      let results = await axios.get(`${SERVER}/book`);
-      this.seteState({
+      let results = await axios.get(`${SERVER}/books`);
+      console.log(`Results: ${results}`);
+      this.setState({
         books: results.data,
         renderBook: true,
       });
-    } catch (error) {
-      console.log("There was an error: ", error.response.data);
+      console.log(this.statebooks);
+    } catch (err) {
+      console.log(`Error: ${err}`);
     }
   }
 
@@ -47,21 +49,17 @@ deleteBook = async ( id ) => {
     this.setState({
       books: updatedBooks,
     })
-    this.getBooks();
   } catch(err) {
     console.log(`Error: ${err}`);
   }  
 }
-
-
 
   componentDidMount() {
     this.getBooks();
   }
 
   render() {
-    let booksArr;
-    booksArr = this.state.books.map((book) => {
+   let booksArr = this.state.books.map((book) => {
       return (
         <Carousel.Item key={book._id}>
           <Carousel.Caption>
