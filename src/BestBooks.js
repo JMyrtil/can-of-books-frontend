@@ -31,7 +31,7 @@ class BestBooks extends React.Component {
     try {
       let url = `${SERVER}/books`;
       let createdBook = await axios.post(url, newBook);
-      this.getBooks();
+      // this.getBooks();
       this.setState({
         books: [...this.state.books, createdBook.data],
       })
@@ -56,7 +56,6 @@ class BestBooks extends React.Component {
 
   updateBook = async (updateBook) => {
     try {
-      
       let url = `${SERVER}/books/${updateBook._id}`;
       let updatedbookServer = await axios.put(url, updateBook)
       let updatedBooks = this.state.books.map((book) => {
