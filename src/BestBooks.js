@@ -57,11 +57,11 @@ class BestBooks extends React.Component {
   updateBook = async (updateBook) => {
     try {
       
-      let url = `${SERVER}/books/${updateBook._id}`;
+      let url = `${SERVER}/books/${updateBook}`;
       let updatedbookServer = await axios.put(url, updateBook)
       let updatedBooks = this.state.books.map((book) => {
         return book._id === updateBook._id
-          ? updatedbookServer.data
+          ? updatedbookServer
           : book;
       });
       this.setState({

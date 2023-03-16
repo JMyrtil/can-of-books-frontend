@@ -17,8 +17,6 @@ class UpdateBookModal extends React.Component {
       title: e.target.title.value || this.props.book.title,
       description: e.target.description.value || this.props.book.description,
       status: e.target.status.value || this.props.book.status,
-      id: this.props.book._id,
-      __v: this.props.book.__v
     }
     this.props.updateBook(bookUpdated);
   };
