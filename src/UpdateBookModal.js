@@ -12,7 +12,6 @@ class UpdateBookModal extends React.Component {
   }
 
   handleBookSubmit = (e) => {
-    e.preventDefault();
     let bookUpdated = {
       title: e.target.title.value || this.props.book.title,
       description: e.target.description.value || this.props.book.description,
